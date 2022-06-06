@@ -1,0 +1,34 @@
+======================================================================================================================================================================================================================================
+Nomor Kartu Keluarga : 3273026062204175
+Nama Kepala Keluarga : Asep Sugiono
+Alamat : Jl.Sukabirus No.35
+RT/RW : 003/015
+Kode Pos : 40257
+Desa/Kelurahan : Citaerup
+Kecamatan : Bojongsoang
+Kabupaten/Kota : Bandung
+Provinsi : Jawa Barat
+
+No	Nama					NIK				Jenis Kelamin		Tempat Lahir		Tanggal Lahir		Agama			Pendidikan			Jenis Pekerjaan		Golongan Darah
+1	Asep Sugiono			1227690606220003		Laki-Laki			Majalengka			06-06-1973			Islam			SLTP				Wiraswasta			A
+2	Kiky Indasari			1221011504750001		Perempuan			Cirebon			15-04-1975			Islam			SLTA				IRT				O
+
+No	Status Perkawinan			Tanggal Perkawinan		Status Hubungan Dalam Keluarga		Kewarganegaraan		No. Paspor		No. KITAP			Nama Ayah			Nama Ibu
+1	Kawin Tercatat			19-06-199				Kepala Keluarga					WNI				A1234567		B9876543210			Alfikri			Sumenep
+2	Kawin Tercatat			19-06-199				Istri							WNI				A2314567		B0918273645			Rey Restu			Surti
+======================================================================================================================================================================================================================================
+Nomor Kartu Keluarga : 5103125784073031
+Nama Kepala Keluarga : Made Vicky Junior
+Alamat : Jl.Sriwijaya Legian 48
+RT/RW : 015/001
+Kode Pos : 50422
+Desa/Kelurahan : Ubud
+Kecamatan : Gianyar
+Kabupaten/Kota : Gianyar
+Provinsi : Bali
+
+No	Nama					NIK				Jenis Kelamin		Tempat Lahir		Tanggal Lahir		Agama			Pendidikan			Jenis Pekerjaan		Golongan Darah
+1	Made Vicky Junior			5103752112020005		Laki-Laki			Gianyar			21-12-2000			Hindu			SLTA				PNS				AB
+
+No	Status Perkawinan			Tanggal Perkawinan		Status Hubungan Dalam Keluarga		Kewarganegaraan		No. Paspor		No. KITAP			Nama Ayah			Nama Ibu
+1	Belum Kawin				-					Anak							WNI				C1234567		DQ192837465			Ketut Gandewa		Ani Winarsih

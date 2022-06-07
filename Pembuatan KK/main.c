@@ -23,15 +23,17 @@ void nomorkk1()
 
     strcpy(digit1,arrkk[0].nik);
     digit1[strlen(digit1)-10]='\0';
+    
     Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
     sprintf(digit2,"%d",Digit2);
-
+    
     srand(time(NULL));
     for(i=0;i<10;i++)
     {
         digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
     digit3[5]=0;
+    
     strcat(nokk,digit1);
     strcat(nokk,digit2);
     strncat(nokk,digit3,5);
@@ -62,6 +64,7 @@ void nomorkk2()
         digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
     digit3[5]=0;
+    
     strcat(nokk,digit1);
     strcat(nokk,digit2);
     strncat(nokk,digit3,5);

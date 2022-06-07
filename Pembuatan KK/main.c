@@ -7,7 +7,7 @@ struct kartukeluarga
     char nokk[20],alamat[50],rt_rw[20],kodepos[20],kel[20],kec[20],kab[20],prov[20];
     char nama[50],nik[20],jkelamin[10],tmp_lahir[20],tgl_lahir[20],agama[20],pendidikan[20],pekerjaan[20],goldar[5];
     char status[20],tgl_kawin[20],peran[20],wn[20],paspor[20],kitap[20],nayah[50],nibu[50];
-}kk,temp,arrkk[500];
+}kk,arrkk[500],temp;
 
 FILE *fp;
 int i,n;
@@ -15,19 +15,26 @@ char nokk[20];
 
 void nomorkk1()
 {
+    int Digit2;
+    char digit1[10],digit2[10],digit3[10],digit4[2],digit5[2],digit6[2];
     char randnum[10]="0123456789";
-    char newrandnum[10];
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
 
-    strcpy(nokk,arrkk[0].nik);
+    strcpy(digit1,arrkk[0].nik);
+    digit1[strlen(digit1)-10]='\0';
+    Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
+    sprintf(digit2,"%d",Digit2);
+
     srand(time(NULL));
-    nokk[strlen(nokk)-12]='\0';
-    for(i=0;i<11;i++)
+    for(i=0;i<10;i++)
     {
-        newrandnum[i]=randnum[rand()%(sizeof(randnum)-1)];
+        digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
-    newrandnum[12]=0;
-    strcat(nokk,newrandnum);
-    printf("%s",nokk);
+    digit3[5]=0;
+    strcat(nokk,digit1);
+    strcat(nokk,digit2);
+    strncat(nokk,digit3,5);
     fprintf(fp,"%s",nokk);
 }
 
@@ -58,8 +65,6 @@ void nomorkk2()
     strcat(nokk,digit1);
     strcat(nokk,digit2);
     strncat(nokk,digit3,5);
-
-    printf("%s",nokk);
     fprintf(fp,"%s",nokk);
 }
 
@@ -111,7 +116,7 @@ void buatkk()
         fgets(arrkk[i].jkelamin,10,stdin); strtok(arrkk[i].jkelamin,"\n");
         fflush(stdin);
         printf("Masukkan Tempat Lahir : ");
-        fgets(arrkk[i].tmp_lahir,20,stdin); strtok(arrkk[i].nama,"\n");
+        fgets(arrkk[i].tmp_lahir,20,stdin); strtok(arrkk[i].tmp_lahir,"\n");
         fflush(stdin);
         printf("Masukkan Tanggal Lahir : ");
         fgets(arrkk[i].tgl_lahir,20,stdin); strtok(arrkk[i].tgl_lahir,"\n");
@@ -152,27 +157,42 @@ void buatkk()
         printf("Masukkan Nama Ibu : ");
         fgets(arrkk[i].nibu,50,stdin); strtok(arrkk[i].nibu,"\n");
     }
-    fprintf(fp,"\n======================================================================================================================================================================================================================================\n");
-    fprintf(fp,"Nomor Kartu Keluarga : "); nomorkk1();
-    fprintf(fp,"\nNama Kepala Keluarga : %s",kk.nama);
-    fprintf(fp,"\nAlamat : %s",kk.alamat);
-    fprintf(fp,"\nRT/RW : %s",kk.rt_rw);
-    fprintf(fp,"\nKode Pos : %s",kk.kodepos);
-    fprintf(fp,"\nDesa/Kelurahan : %s",kk.kel);
-    fprintf(fp,"\nKecamatan : %s",kk.kec);
-    fprintf(fp,"\nKabupaten/Kota : %s",kk.kab);
-    fprintf(fp,"\nProvinsi : %s\n",kk.prov);
-    fprintf(fp,"\nNo\tNama\t\t\tNIK\t\t\t\tJenis Kelamin\t\tTempat Lahir\t\tTanggal Lahir\t\tAgama\t\t\tPendidikan\t\t\tJenis Pekerjaan\t\tGolongan Darah");
+    fprintf(fp,"Nomor Kartu Keluarga\t\t\t: "); nomorkk1();
+    fprintf(fp,"\nNama Kepala Keluarga\t\t\t: %s",kk.nama);
+    fprintf(fp,"\nAlamat\t\t\t\t\t: %s",kk.alamat);
+    fprintf(fp,"\nRT/RW\t\t\t\t\t\t: %s",kk.rt_rw);
+    fprintf(fp,"\nKode Pos\t\t\t\t\t: %s",kk.kodepos);
+    fprintf(fp,"\nDesa/Kelurahan\t\t\t\t: %s",kk.kel);
+    fprintf(fp,"\nKecamatan\t\t\t\t\t: %s",kk.kec);
+    fprintf(fp,"\nKabupaten/Kota\t\t\t\t: %s",kk.kab);
+    fprintf(fp,"\nProvinsi\t\t\t\t\t: %s",kk.prov);
     for(i=0;i<n;i++)
     {
-        fprintf(fp,"\n%d\t%s\t\t\t\t%s\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\t\t%s\t\t\t\t%s\t\t%s",i+1,arrkk[i].nama,arrkk[i].nik,arrkk[i].jkelamin,arrkk[i].tmp_lahir,arrkk[i].tgl_lahir,arrkk[i].agama,arrkk[i].pendidikan,arrkk[i].pekerjaan,arrkk[i].goldar);
+        fprintf(fp,"\n\nAnggota Keluarga %d",i+1);
+        fprintf(fp,"\nNama Lengkap\t\t\t\t: %s",arrkk[i].nama);
+        fprintf(fp,"\nNIK\t\t\t\t\t\t: %s",arrkk[i].nik);
+        fprintf(fp,"\nJenis Kelamin\t\t\t\t: %s",arrkk[i].jkelamin);
+        fprintf(fp,"\nTempat Lahir\t\t\t\t: %s",arrkk[i].tmp_lahir);
+        fprintf(fp,"\nTanggal Lahir\t\t\t\t: %s",arrkk[i].tgl_lahir);
+        fprintf(fp,"\nAgama\t\t\t\t\t\t: %s",arrkk[i].agama);
+        fprintf(fp,"\nPendidikan\t\t\t\t\t: %s",arrkk[i].pendidikan);
+        fprintf(fp,"\nJenis Pekerjaan\t\t\t\t: %s",arrkk[i].pekerjaan);
+        fprintf(fp,"\nGolongan Darah\t\t\t\t: %s",arrkk[i].goldar);
+        fprintf(fp,"\nStatus Perkawinan\t\t\t\t: %s",arrkk[i].status);
+        fprintf(fp,"\nTanggal Perkawinan\t\t\t: %s",arrkk[i].tgl_kawin);
+        fprintf(fp,"\nStatus Hubungan Dalam Keluarga\t: %s",arrkk[i].peran);
+        fprintf(fp,"\nKewarganegaraan\t\t\t\t: %s",arrkk[i].wn);
+        fprintf(fp,"\nDokumen Imigrasi");
+        fprintf(fp,"\n\tNo. Paspor\t\t\t\t: %s",arrkk[i].paspor);
+        fprintf(fp,"\n\tNo. KITAP\t\t\t\t: %s",arrkk[i].kitap);
+        fprintf(fp,"\nNama Orang Tua");
+        fprintf(fp,"\n\tNama Ayah\t\t\t\t: %s",arrkk[i].nayah);
+        fprintf(fp,"\n\tNama Ibu\t\t\t\t: %s",arrkk[i].nibu);
     }
-    fprintf(fp,"\n\nNo\tStatus Perkawinan\t\t\tTanggal Perkawinan\t\tStatus Hubungan Dalam Keluarga\t\tKewarganegaraan\t\tNo. Paspor\t\tNo. KITAP\t\t\tNama Ayah\t\t\tNama Ibu");
-    for(i=0;i<n;i++)
-    {
-        fprintf(fp,"\n%d\t%s\t\t\t%s\t\t\t\t%s\t\t\t\t\t%s\t\t\t\t%s\t\t%s\t\t\t%s\t\t%s",i+1,arrkk[i].status,arrkk[i].tgl_kawin,arrkk[i].peran,arrkk[i].wn,arrkk[i].paspor,arrkk[i].kitap,arrkk[i].nayah,arrkk[i].nibu);
-    }
+    fprintf(fp,"\n=============================================================================================================================================================\n");
     fclose(fp);
+    system("pause"); system("cls");
+    printf("Data Anda Telah Disimpan");
 }
 
 int main()

@@ -14,6 +14,36 @@ int i,n,pilih;
 char nokk[20],nama[50], alamat[30], tgl_lahir[15], tmp_lahir[30], status[15], pekerjaan[25];
 ;
 
+void login()
+{
+    char pw_save[20],un_save[20];
+    int isLoggenin = 0;
+
+    fp = fopen("login.txt", "a+");
+    printf("=======Registrasi=======\n");
+    printf("Masukkan NIK : ");
+    scanf("%s",&un_save);
+    fprintf(fp, "%s\n", un_save);
+    fclose(fp);
+    fp = fopen("Login.txt", "r");
+    char password[20], username[20];
+    printf("=========Log in=========\n");
+    printf("Masukkan NIK : ");
+    scanf("%s",&username);
+    while(!feof(fp)){
+    char un[20];
+    fscanf(fp,"%s\n",un);
+     if(strcmp(username, un) == 0)
+       isLoggenin = 1;
+    }
+     if(isLoggenin==1){
+       printf("login berhasil!");
+     }
+      else{
+       printf("login gagal!");
+      }
+    fclose(fp);
+}
 //Best Option
 void nomorkk()
 {
@@ -341,6 +371,7 @@ void pd(){
 
 int main()
 {
+    login();
     system("pause");
     system("cls");
     Pilih_Layanan:

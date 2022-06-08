@@ -1,7 +1,7 @@
-Nomor Kartu Keluarga			: 3273027062217106
+Nomor Kartu Keluarga			: 727127062221310
 Nama Kepala Keluarga			: Axel David
-Alamat					: Jl. Jalan
-RT/RW						: 005/017
+Alamat					: Jl.Jalan
+RT/RW						: 005/003
 Kode Pos					: 40222
 Desa/Kelurahan				: Desa
 Kecamatan					: Kecamatan
@@ -9,13 +9,44 @@ Kabupaten/Kota				: Kota
 Provinsi					: Provinsi
 
 Anggota Keluarga 1
-Nama Lengkap				: Axel
-NIK						: 7371022106030003
-Jenis Kelamin				: Laki
+Nama Lengkap				: Axel David
+NIK						: 727120210603003
+Jenis Kelamin				: Laki-Laki
 Tempat Lahir				: Makassar
 Tanggal Lahir				: 21-06-2003
 Agama						: Kristen
 Pendidikan					: SMA
+Jenis Pekerjaan				: Pelajar/Mahasiswa
+Golongan Darah				: O
+Status Perkawinan				: -
+Tanggal Perkawinan			: -
+Status Hubungan Dalam Keluarga	: Ayah?
+Kewarganegaraan				: WNI
+Dokumen Imigrasi
+	No. Paspor				: -
+	No. KITAP				: -
+Nama Orang Tua
+	Nama Ayah				: Joseph Joestar
+	Nama Ibu				: Erlina Joestar
+=============================================================================================================================================================
+Nomor Kartu Keluarga			: 3273228062224422
+Nama Kepala Keluarga			: Fikri
+Alamat					: Jl. Jalan
+RT/RW						: RT
+Kode Pos					: 40222
+Desa/Kelurahan				: Desa
+Kecamatan					: Kecamatan
+Kabupaten/Kota				: Kota
+Provinsi					: Jawa Barat
+
+Anggota Keluarga 1
+Nama Lengkap				: Fikri
+NIK						: 1220120906220001
+Jenis Kelamin				: Laki-Laki
+Tempat Lahir				: Bandung
+Tanggal Lahir				: 09-06-2022
+Agama						: Islam
+Pendidikan					: Sarjana
 Jenis Pekerjaan				: Pelajar/Mahasiswa
 Golongan Darah				: O
 Status Perkawinan				: Belum Kawin
@@ -23,10 +54,9 @@ Tanggal Perkawinan			: -
 Status Hubungan Dalam Keluarga	: Ayah
 Kewarganegaraan				: WNI
 Dokumen Imigrasi
-	No. Paspor				: A1234567
-	No. KITAP				: B1029384756
+	No. Paspor				: -
+	No. KITAP				: -
 Nama Orang Tua
-	Nama Ayah				: Joseph Joestar
-	Nama Ibu				: Erlina Joestar
+	Nama Ayah				: a
+	Nama Ibu				: a
 =============================================================================================================================================================
-

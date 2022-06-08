@@ -13,7 +13,46 @@ FILE *fp;
 int i,n;
 char nokk[20];
 
-void nomorkk1()
+//Best Option
+void nomorkk()
+{
+    int Digit2;
+    char digit1[10];
+    char digit2[10],digit3[10];
+    char randnum[10]="0123456789";
+    char digit4[2],digit5[2],digit6[2];
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    if(strcmp(kk.prov,"Jawa Barat")==0)
+    {
+        strcpy(digit1,"327322");
+    }
+    else
+    {
+        strcpy(digit1,arrkk[0].nik);
+        digit1[strlen(digit1)-10]='\0';
+    }
+
+    Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
+    sprintf(digit2,"%d",Digit2);
+
+    srand(time(NULL));
+    for(i=0;i<10;i++)
+    {
+        digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
+    }
+    digit3[5]=0;
+    strcat(nokk,digit1);
+    strcat(nokk,digit2);
+    strncat(nokk,digit3,5);
+    fprintf(fp,"%s",nokk);
+}
+
+
+//Alternatives
+void nomorkk2()
 {
     int Digit2;
     char digit1[10],digit2[10],digit3[10],digit4[2],digit5[2],digit6[2];
@@ -23,38 +62,6 @@ void nomorkk1()
 
     strcpy(digit1,arrkk[0].nik);
     digit1[strlen(digit1)-10]='\0';
-    
-    Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
-    sprintf(digit2,"%d",Digit2);
-    
-    srand(time(NULL));
-    for(i=0;i<10;i++)
-    {
-        digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
-    }
-    digit3[5]=0;
-    
-    strcat(nokk,digit1);
-    strcat(nokk,digit2);
-    strncat(nokk,digit3,5);
-    fprintf(fp,"%s",nokk);
-}
-
-
-
-
-// Alternatif Nomor KK
-void nomorkk2()
-{
-    int Digit2;
-    char digit1[10]="327302";
-    char digit2[10],digit3[10];
-    char randnum[10]="0123456789";
-    char digit4[2],digit5[2],digit6[2];
-
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-
     Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
     sprintf(digit2,"%d",Digit2);
 
@@ -64,7 +71,6 @@ void nomorkk2()
         digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
     digit3[5]=0;
-    
     strcat(nokk,digit1);
     strcat(nokk,digit2);
     strncat(nokk,digit3,5);
@@ -160,7 +166,7 @@ void buatkk()
         printf("Masukkan Nama Ibu : ");
         fgets(arrkk[i].nibu,50,stdin); strtok(arrkk[i].nibu,"\n");
     }
-    fprintf(fp,"Nomor Kartu Keluarga\t\t\t: "); nomorkk1();
+    fprintf(fp,"Nomor Kartu Keluarga\t\t\t: "); nomorkk();
     fprintf(fp,"\nNama Kepala Keluarga\t\t\t: %s",kk.nama);
     fprintf(fp,"\nAlamat\t\t\t\t\t: %s",kk.alamat);
     fprintf(fp,"\nRT/RW\t\t\t\t\t\t: %s",kk.rt_rw);

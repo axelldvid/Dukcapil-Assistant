@@ -1,0 +1,31 @@
+Nomor Kepala Keluarga			:
+Nama Kepala Keluarga			:
+Alamat					:
+RT/RW						:
+Kode Pos					:
+Desa/Kelurahan				:
+Kecamatan					:
+Kabupaten/Kota				:
+Provinsi					:
+
+Anggota Kepala Keluarga 1
+Nama Lengkap				:
+NIK						:
+Jenis Kelamin				:
+Tempat Lahir				:
+Tanggal Lahir				:
+Agama						:
+Pendidikan					:
+Jenis Pekerjaan				:
+Golongan Darah				:
+Status Perkawinan				:
+Tanggal Perkawinan			:
+Status Hubungan Dalam Keluarga	:
+Kewarganegaraan				:
+Dokumen Imigrasi
+	No. Paspor				:
+	No. KITAP				:
+Nama Orang Tua
+	Nama Ayah				:
+	Nama Ibu				:
+=============================================================================================================================================================

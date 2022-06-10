@@ -4,15 +4,14 @@
 
 struct kartukeluarga
 {
-    char nokk[20],alamat[50],rt_rw[20],kodepos[20],kel[20],kec[20],kab[20],prov[20];
-    char nama[50],nik[20],jkelamin[10],tmp_lahir[20],tgl_lahir[20],agama[20],pendidikan[20],pekerjaan[20],goldar[5];
+    char nokk[15],alamat[50],rt_rw[20],kodepos[20],kel[20],kec[20],kab[20],prov[20];
+    char nama[50],nik[15],jkelamin[10],tmp_lahir[20],tgl_lahir[20],agama[20],pendidikan[20],pekerjaan[20],goldar[5];
     char status[20],tgl_kawin[20],peran[20],wn[20],paspor[20],kitap[20],nayah[50],nibu[50];
 }kk,arrkk[500],temp;
 
 FILE *fp;
-int i,n,pilih;
+int i,j,n=2,pilih;
 char nokk[20],nama[50], alamat[30], tgl_lahir[15], tmp_lahir[30], status[15], pekerjaan[25];
-;
 
 void login()
 {
@@ -44,27 +43,20 @@ void login()
       }
     fclose(fp);
 }
-//Best Option
 void nomorkk()
 {
     int Digit2;
     char digit1[10];
     char digit2[10],digit3[10];
     char randnum[10]="0123456789";
-    char digit4[2],digit5[2],digit6[2];
-
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    if(strcmp(kk.prov,"Jawa Barat")==0)
-    {
-        strcpy(digit1,"327322");
-    }
-    else
-    {
-        strcpy(digit1,arrkk[0].nik);
-        digit1[strlen(digit1)-10]='\0';
-    }
+    if(strcmp(kk.prov,"Jawa Barat")==0) strcpy(digit1,"327322");
+    else if(strcmp(kk.prov,"DKI Jakarta")==0) strcpy(digit1,"317406");
+    else if(strcmp(kk.prov,"Sulawesi Selatan")==0) strcpy(digit1,"737102");
+    else if(strcmp(kk.prov,"Lampung")==0) strcpy(digit1,"180319");
+    else strcpy(digit1,"110321");
 
     Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
     sprintf(digit2,"%d",Digit2);
@@ -75,37 +67,47 @@ void nomorkk()
         digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
     digit3[5]=0;
-    strcat(nokk,digit1);
-    strcat(nokk,digit2);
-    strncat(nokk,digit3,5);
-    fprintf(fp,"%s",nokk);
+    strcat(kk.nokk,digit1);
+    strcat(kk.nokk,digit2);
+    strncat(kk.nokk,digit3,5);
+    fprintf(fp,"%s",kk.nokk);
 }
 
-
-//Alternatives
-void nomorkk2()
+void nik()
 {
-    int Digit2;
-    char digit1[10],digit2[10],digit3[10],digit4[2],digit5[2],digit6[2];
-    char randnum[10]="0123456789";
+    char digit1[n][10];
+    char digit2[n][10],digit3[n][10],digit4[n][10];
+    char randnum[10]={"0123456789"};
+    char digit5[n][10];
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-
-    strcpy(digit1,arrkk[0].nik);
-    digit1[strlen(digit1)-10]='\0';
-    Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
-    sprintf(digit2,"%d",Digit2);
-
     srand(time(NULL));
-    for(i=0;i<10;i++)
+
+    if(strcmp(kk.prov,"Jawa Barat")==0) strcpy(digit1[i],"327322");
+    else if(strcmp(kk.prov,"DKI Jakarta")==0) strcpy(digit1[i],"317406");
+    else if(strcmp(kk.prov,"Sulawesi Selatan")==0) strcpy(digit1[i],"737102");
+    else if(strcmp(kk.prov,"Lampung")==0) strcpy(digit1[i],"180319");
+    else strcpy(digit1[i],"110321");
+
+    memcpy(digit2[i],arrkk[i].tgl_lahir,2);
+    digit2[i][2]='\0';
+    memcpy(digit3[i],arrkk[i].tgl_lahir+3,2);
+    digit3[i][2]='\0';
+    memcpy(digit4[i],arrkk[i].tgl_lahir+8,2);
+    digit4[i][2]='\0';
+
+
+    for(j=0;j<10;j++)
     {
-        digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
+        digit5[i][j]=randnum[rand()%(sizeof(randnum)-1)];
     }
-    digit3[5]=0;
-    strcat(nokk,digit1);
-    strcat(nokk,digit2);
-    strncat(nokk,digit3,5);
-    fprintf(fp,"%s",nokk);
+    digit5[i][4]=0;
+    strcat(arrkk[i].nik,digit1[i]);
+    strcat(arrkk[i].nik,digit2[i]);
+    strcat(arrkk[i].nik,digit3[i]);
+    strcat(arrkk[i].nik,digit4[i]);
+    strncat(arrkk[i].nik,digit5[i],4);
+    printf("%s\n",arrkk[i].nik);
 }
 
 
@@ -149,17 +151,16 @@ void buatkk()
         printf("Masukkan Nama Lengkap : ");
         fgets(arrkk[i].nama,50,stdin); strtok(arrkk[i].nama,"\n");
         fflush(stdin);
-        printf("Masukkan NIK : ");
-        fgets(arrkk[i].nik,20,stdin); strtok(arrkk[i].nik,"\n");
-        fflush(stdin);
         printf("Masukkan Jenis Kelamin : ");
         fgets(arrkk[i].jkelamin,10,stdin); strtok(arrkk[i].jkelamin,"\n");
         fflush(stdin);
         printf("Masukkan Tempat Lahir : ");
         fgets(arrkk[i].tmp_lahir,20,stdin); strtok(arrkk[i].tmp_lahir,"\n");
         fflush(stdin);
-        printf("Masukkan Tanggal Lahir : ");
+        printf("Masukkan Tanggal Lahir(31/12/1990) : ");
         fgets(arrkk[i].tgl_lahir,20,stdin); strtok(arrkk[i].tgl_lahir,"\n");
+        fflush(stdin);
+        printf("Masukkan NIK : "); nik();
         fflush(stdin);
         printf("Masukkan Agama : ");
         fgets(arrkk[i].agama,20,stdin); strtok(arrkk[i].agama,"\n");
@@ -210,10 +211,10 @@ void buatkk()
     {
         fprintf(fp,"\n\nAnggota Keluarga %d",i+1);
         fprintf(fp,"\nNama Lengkap\t\t\t\t: %s",arrkk[i].nama);
-        fprintf(fp,"\nNIK\t\t\t\t\t\t: %s",arrkk[i].nik);
         fprintf(fp,"\nJenis Kelamin\t\t\t\t: %s",arrkk[i].jkelamin);
         fprintf(fp,"\nTempat Lahir\t\t\t\t: %s",arrkk[i].tmp_lahir);
         fprintf(fp,"\nTanggal Lahir\t\t\t\t: %s",arrkk[i].tgl_lahir);
+        fprintf(fp,"\nNIK\t\t\t\t\t\t: %s",arrkk[i].nik);
         fprintf(fp,"\nAgama\t\t\t\t\t\t: %s",arrkk[i].agama);
         fprintf(fp,"\nPendidikan\t\t\t\t\t: %s",arrkk[i].pendidikan);
         fprintf(fp,"\nJenis Pekerjaan\t\t\t\t: %s",arrkk[i].pekerjaan);
@@ -232,7 +233,7 @@ void buatkk()
     fprintf(fp,"\n=============================================================================================================================================================\n");
     fclose(fp);
     system("pause"); system("cls");
-    printf("Data Anda Telah Disimpan");
+    printf("Data Anda Telah Disimpan\n");
 }
 
 void ktp(){
@@ -372,9 +373,9 @@ void pd(){
 int main()
 {
     login();
+    Pilih_Layanan:
     system("pause");
     system("cls");
-    Pilih_Layanan:
     printf("Silahkan Memilih Layanan :\n");
     printf("1. Pembuatan Kartu Keluarga\n");
     printf("2. Pembuatan Akta Kelahiran\n");
@@ -389,7 +390,6 @@ int main()
         case 1:
         system("cls");
         buatkk();
-        system("cls");
         goto Pilih_Layanan;
 
         case 2:
@@ -399,19 +399,16 @@ int main()
         case 3:
         system("cls");
         ktp();
-        system("cls");
         goto Pilih_Layanan;
 
         case 4:
         system("cls");
         ak();
-        system("cls");
         goto Pilih_Layanan;
 
         case 5:
         system("cls");
         pd();
-        system("cls");
         goto Pilih_Layanan;
 
         case 6:

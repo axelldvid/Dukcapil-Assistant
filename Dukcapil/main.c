@@ -11,50 +11,136 @@ struct kartukeluarga
 
 struct aktakelahiran
 {
-    char noakta[25],jam[10],tgl_lahir[20];
-    char nama[50],anak[10],jkelamin[20],kab[20],nayah[50],nibu[50];
+    char noakta[25],tgl_lahir[20];
+    char nama[50],anak[10],jkelamin[20],tmp_lahir[20],nayah[50],nibu[50];
 }akl;
 
+struct kartupenduduk
+{
+    char nik[25],tgl_lahir[15],rt_rw[10],kel[25],kec[30],gol[5];
+    char nama[50],tmp_lahir[30],jenis[10],alamat[30],agama[10],status[15],kwg[5],pekerjaan[20];
+}ktp;
+
+struct aktakematian
+{
+    char noakta[25],anak[10],jkelamin[20];
+    char nama[50],tmp_lahir[20],tgl_lahir[20],tmp_mati[20],tgl_mati[20],nayah[50],nibu[50];
+}ak;
+
 FILE *fp;
-int i,j,n=2,pilih;
+int i,j,n,pilih;
 char nokk[20],nama[50], alamat[30], tgl_lahir[15], tmp_lahir[30], status[15], pekerjaan[25];
 
-void registrasi()
+int main()
 {
-    char pw_save[20],un_save[20];
+    int x,y;
+    char header[]="----------- Selamat Datang di Dukcapil Assistant -----------\n\n";
 
-    fp = fopen("login.txt", "a+");
-    printf("\n=======Registrasi=======\n");
-    printf("Masukkan NIK : ");
-    scanf("%s",&un_save);
-    fprintf(fp, "%s\n", un_save);
-    fclose(fp);
-    exit(0);
-}
-
-void login()
-{
-    int isLoggenin = 0;
-
-    fp = fopen("Login.txt", "r");
-    char password[20], username[20];
-    printf("\n=========Log in=========\n");
-    printf("Masukkan NIK : ");
-    scanf("%s",&username);
-    while(!feof(fp)){
-    char un[20];
-    fscanf(fp,"%s\n",un);
-     if(strcmp(username, un) == 0)
-       isLoggenin = 1;
+    Login_Page:
+    for(x=0; header[x]!=NULL; x++)
+    {
+        printf("%c",header[x]);
+        for(y=0; y<=33333333; y++)
+        {}
     }
-     if(isLoggenin==1){
-       printf("Login berhasil!\n");
-     }
-      else{
-       printf("Login gagal! NIK yang anda masukkan tidak terdaftar\n");
-       exit(0);
-      }
-    fclose(fp);
+    printf("Silahkan Login atau Registrasi untuk melanjutkan\n");
+    printf("1. Registrasi\n");
+    printf("2. Login\n");
+    printf("3. Exit\n");
+    printf("Pilih : ");
+    scanf("%d",&pilih);
+    if(pilih==1)
+    {
+        char pw_save[20],un_save[20];
+        fp = fopen("login.txt", "a+");
+        printf("\n=======Registrasi=======\n");
+        printf("Masukkan username : ");
+        scanf("%s",&un_save);
+        printf("Masukkan password : ");
+        scanf("%s",&pw_save);
+        fprintf(fp, "%s %s", un_save,pw_save);
+        fclose(fp);
+        system("cls");
+        goto Login_Page;
+    }
+    else if(pilih==2)
+    {
+        char password[20], username[20];
+        int isLoggenin = 0;
+
+        fp = fopen("Login.txt", "r");
+        printf("\n=========Log in=========\n");
+        printf("Masukkan username : ");
+        scanf("%s",&username);
+        printf("Masukkan password : ");
+        scanf("%s",&password);
+        printf("\n");
+        while(!feof(fp)){
+            char un[20];
+            char pw[20];
+        fscanf(fp,"%s %s\n",un,pw);
+        if(strcmp(username, un) == 0 &&
+        strcmp(password,pw) == 0){
+        isLoggenin = 1;
+            }
+        }
+        if(isLoggenin==1){
+        printf("login berhasil!\n");
+        }
+        else{
+        printf("login gagal!");
+        system("cls");
+        goto Login_Page;
+        }
+        fclose(fp);
+    }
+    else return 0;
+
+    Pilih_Layanan:
+    pilih=0;
+    system("pause");
+    system("cls");
+    printf("----------- Selamat Datang di Dukcapil Assistant -----------\n\n");
+    printf("Silahkan Memilih Layanan :\n");
+    printf("1. Pembuatan Kartu Keluarga\n");
+    printf("2. Pembuatan Akta Kelahiran\n");
+    printf("3. Pembuatan Kartu Tanda Penduduk\n");
+    printf("4. Pembuatan Akta Kematian\n");
+    printf("5. Pengecekan Data\n");
+    printf("6. Log Out\n");
+    printf("Pilih : ");
+    scanf("%d",&pilih);
+    switch(pilih)
+    {
+        case 1:
+        system("cls");
+        buatkk();
+        goto Pilih_Layanan;
+
+        case 2:
+        system("cls");
+        buatakl();
+        goto Pilih_Layanan;
+
+        case 3:
+        system("cls");
+        buatktp();
+        goto Pilih_Layanan;
+
+        case 4:
+        system("cls");
+        buatak();
+        goto Pilih_Layanan;
+
+        case 5:
+        system("cls");
+        cekdata();
+        goto Pilih_Layanan;
+
+        case 6:
+        system("cls");
+        goto Login_Page;
+    }
 }
 
 void nomorkk()
@@ -80,10 +166,10 @@ void nomorkk()
     {
         digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
     }
-    digit3[5]=0;
+    digit3[4]=0;
     strcat(kk.nokk,digit1);
     strcat(kk.nokk,digit2);
-    strncat(kk.nokk,digit3,5);
+    strncat(kk.nokk,digit3,4);
     fprintf(fp,"%s\n",kk.nokk);
 }
 
@@ -130,8 +216,6 @@ void buatkk()
     int x;
     double y;
     char header[]="----------- Selamat Datang di Layanan Pembuatan Kartu Keluarga -----------";
-
-    fp = fopen("Data Akta Kematian.txt", "a+");
     for(x=0; header[x]!=NULL; x++){
         printf("%c",header[x]);
         for(y=0; y<=33333333; y++){
@@ -173,54 +257,54 @@ void buatkk()
     {
         fflush(stdin);
         printf("\nAnggota Keluarga %d\n",i+1);
-        printf("Masukkan Nama Lengkap\t\t\t\t\t: ");
+        printf("Masukkan Nama Lengkap : ");
         fgets(arrkk[i].nama,50,stdin); strtok(arrkk[i].nama,"\n");
         fflush(stdin);
-        printf("Masukkan Jenis Kelamin\t\t\t\t\t: ");
+        printf("Masukkan Jenis Kelamin : ");
         fgets(arrkk[i].jkelamin,20,stdin); strtok(arrkk[i].jkelamin,"\n");
         fflush(stdin);
-        printf("Masukkan Tempat Lahir\t\t\t\t\t: ");
+        printf("Masukkan Tempat Lahir : ");
         fgets(arrkk[i].tmp_lahir,20,stdin); strtok(arrkk[i].tmp_lahir,"\n");
         fflush(stdin);
-        printf("Masukkan Tanggal Lahir(31/12/1990)\t\t\t: ");
+        printf("Masukkan Tanggal Lahir(31/12/1990) : ");
         fgets(arrkk[i].tgl_lahir,20,stdin); strtok(arrkk[i].tgl_lahir,"\n");
         fflush(stdin);
-        printf("Masukkan NIK\t\t\t\t\t\t: "); nik();
+        printf("Masukkan NIK : "); nik();
         fflush(stdin);
-        printf("Masukkan Agama\t\t\t\t\t\t: ");
+        printf("Masukkan Agama : ");
         fgets(arrkk[i].agama,20,stdin); strtok(arrkk[i].agama,"\n");
         fflush(stdin);
-        printf("Masukkan Pendidikan\t\t\t\t\t: ");
+        printf("Masukkan Pendidikan : ");
         fgets(arrkk[i].pendidikan,20,stdin); strtok(arrkk[i].pendidikan,"\n");
         fflush(stdin);
-        printf("Masukkan Jenis Pekerjaan\t\t\t\t: ");
+        printf("Masukkan Jenis Pekerjaan : ");
         fgets(arrkk[i].pekerjaan,20,stdin); strtok(arrkk[i].pekerjaan,"\n");
         fflush(stdin);
-        printf("Masukkan Golongan Darah\t\t\t\t\t: ");
+        printf("Masukkan Golongan Darah : ");
         fgets(arrkk[i].goldar,5,stdin); strtok(arrkk[i].goldar,"\n");
         fflush(stdin);
-        printf("Masukkan Status Perkawinan\t\t\t\t: ");
+        printf("Masukkan Status Perkawinan : ");
         fgets(arrkk[i].status,20,stdin); strtok(arrkk[i].status,"\n");
         fflush(stdin);
-        printf("Masukkan Tanggal Perkawinan\t\t\t\t: ");
+        printf("Masukkan Tanggal Perkawinan : ");
         fgets(arrkk[i].tgl_kawin,20,stdin); strtok(arrkk[i].tgl_kawin,"\n");
         fflush(stdin);
-        printf("Masukkan Status Hubungan Dalam Keluarga\t\t\t: ");
+        printf("Masukkan Status Hubungan Dalam Keluarga : ");
         fgets(arrkk[i].peran,20,stdin); strtok(arrkk[i].peran,"\n");
         fflush(stdin);
-        printf("Masukkan Kewarganegaraan\t\t\t\t: ");
+        printf("Masukkan Kewarganegaraan : ");
         fgets(arrkk[i].wn,20,stdin); strtok(arrkk[i].wn,"\n");
         fflush(stdin);
-        printf("Masukkan Nomor Paspor\t\t\t\t\t: ");
+        printf("Masukkan Nomor Paspor : ");
         fgets(arrkk[i].paspor,20,stdin); strtok(arrkk[i].paspor,"\n");
         fflush(stdin);
-        printf("Masukkan Nomor KITAP\t\t\t\t\t: ");
+        printf("Masukkan Nomor KITAP : ");
         fgets(arrkk[i].kitap,20,stdin); strtok(arrkk[i].kitap,"\n");
         fflush(stdin);
-        printf("Masukkan Nama Ayah\t\t\t\t\t: ");
+        printf("Masukkan Nama Ayah : ");
         fgets(arrkk[i].nayah,50,stdin); strtok(arrkk[i].nayah,"\n");
         fflush(stdin);
-        printf("Masukkan Nama Ibu\t\t\t\t\t: ");
+        printf("Masukkan Nama Ibu : ");
         fgets(arrkk[i].nibu,50,stdin); strtok(arrkk[i].nibu,"\n");
     }
     nomorkk();
@@ -241,7 +325,7 @@ void buatkk()
         fprintf(fp,"%s\n",arrkk[i].nik);
         fprintf(fp,"%s\n",arrkk[i].agama);
         fprintf(fp,"%s\n",arrkk[i].pendidikan);
-        fprintf(fp,"\%s\n",arrkk[i].pekerjaan);
+        fprintf(fp,"%s\n",arrkk[i].pekerjaan);
         fprintf(fp,"%s\n",arrkk[i].goldar);
         fprintf(fp,"%s\n",arrkk[i].status);
         fprintf(fp,"%s\n",arrkk[i].tgl_kawin);
@@ -252,9 +336,8 @@ void buatkk()
         fprintf(fp,"%s\n",arrkk[i].nayah);
         fprintf(fp,"%s\n",arrkk[i].nibu);
     }
-    fprintf(fp,"\n=============================================================================================================================================================\n");
+    fprintf(fp,"================================================\n");
     fclose(fp);
-    system("pause"); system("cls");
     printf("Data Anda Telah Disimpan\n");
 }
 
@@ -268,10 +351,10 @@ void noakl()
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    if(strcmp(akl.kab,"Bandung")==0) strcpy(digit1,"3273-");
-    else if(strcmp(akl.kab,"Jakarta Selatan")==0) strcpy(digit1,"3174-");
-    else if(strcmp(akl.kab,"Makassar")==0) strcpy(digit1,"7371-");
-    else if(strcmp(akl.kab,"Lampung")==0) strcpy(digit1,"1803-");
+    if(strcmp(akl.tmp_lahir,"Bandung")==0) strcpy(digit1,"3273-");
+    else if(strcmp(akl.tmp_lahir,"Jakarta Selatan")==0) strcpy(digit1,"3174-");
+    else if(strcmp(akl.tmp_lahir,"Makassar")==0) strcpy(digit1,"7371-");
+    else if(strcmp(akl.tmp_lahir,"Lampung")==0) strcpy(digit1,"1803-");
     else strcpy(digit1,"1321-");
 
     srand(time(NULL));
@@ -297,7 +380,7 @@ void noakl()
     strcat(akl.noakta,digit2);
     strcat(akl.noakta,digit3);
     strncat(akl.noakta,digit4,4);
-    fprintf(fp,"%s\n",akl.noakta);
+    fprintf(fp,"%s ",akl.noakta);
 
 }
 
@@ -306,8 +389,6 @@ void buatakl()
     int x;
     double y;
     char header[]="----------- Selamat Datang di Layanan Pembuatan Akta Kelahiran -----------";
-
-    fp = fopen("Data Akta Kematian.txt", "a+");
     for(x=0; header[x]!=NULL; x++){
         printf("%c",header[x]);
         for(y=0; y<=33333333; y++){
@@ -327,13 +408,10 @@ void buatakl()
     fgets(akl.jkelamin,20,stdin); strtok(akl.jkelamin,"\n");
     fflush(stdin);
     printf("Masukkan Tempat Lahir : ");
-    fgets(akl.kab,20,stdin); strtok(akl.kab,"\n");
+    fgets(akl.tmp_lahir,20,stdin); strtok(akl.tmp_lahir,"\n");
     fflush(stdin);
     printf("Masukkan Tanggal Lahir(31/12/1990): ");
     fgets(akl.tgl_lahir,20,stdin); strtok(akl.tgl_lahir,"\n");
-    fflush(stdin);
-    printf("Masukkan Waktu Lahir(24:59): ");
-    fgets(akl.jam,10,stdin); strtok(akl.jam,"\n");
     fflush(stdin);
     printf("Masukkan Nama Ayah : ");
     fgets(akl.nayah,50,stdin); strtok(akl.nayah,"\n");
@@ -343,21 +421,11 @@ void buatakl()
     fflush(stdin);
 
     noakl();
-    fprintf(fp,"%s\n",akl.nama);
-    fprintf(fp,"%s\n",akl.anak);
-    fprintf(fp,"%s\n",akl.jkelamin);
-    fprintf(fp,"%s\n",akl.kab);
-    fprintf(fp,"%s\n",akl.tgl_lahir);
-    fprintf(fp,"%s\n",akl.jam);
-    fprintf(fp,"%s\n",akl.nayah);
-    fprintf(fp,"%s\n",akl.nibu);
-    fprintf(fp,"=============================================================================================================================================================\n");
+    fprintf(fp,"%s %s %s %s %s %s %s\n",akl.nama,akl.anak,akl.jkelamin,akl.tmp_lahir,akl.tgl_lahir,akl.nayah,akl.nibu);
     fclose(fp);
-    system("pause"); system("cls");
 }
 
-void ktp(){
-    char nik[25], rt_rw[10], kel[25], kec[25], kwg[5], agama[10], gol[2], jenis[10];
+void buatktp(){
     int x;
     double y;
     char header[]="----------- Selamat Datang di Layanan KTP -----------";
@@ -370,64 +438,60 @@ void ktp(){
     }
     printf("\n----- Silahkan Untuk Mengisi Data-Data di Bawah -----\n");
     fflush(stdin);
-    printf("NIK\t\t  : ");
-    fgets(nik, 25, stdin);
-    strtok(nik, "\n");
+    printf("Masukkan NIK  : ");
+    fgets(ktp.nik, 25, stdin);
+    strtok(ktp.nik, "\n");
     fflush(stdin);
-    printf("Nama\t\t  : ");
-    fgets(nama, 50, stdin);
-    strtok(nama, "\n");
-    printf("Tempat lahir\t  : ");
-    fgets(tmp_lahir, 30, stdin);
-    strtok(tmp_lahir, "\n");
-    printf("Tanggal lahir\t  : ");
-    fgets(tgl_lahir, 15, stdin);
-    strtok(tgl_lahir, "\n");
-    printf("Jenis Kelamin\t  : ");
-    fgets(jenis, 10, stdin);
-    strtok(jenis, "\n");
+    printf("Masukkan Nama : ");
+    fgets(ktp.nama, 50, stdin);
+    strtok(ktp.nama, "\n");
+    printf("Masukkan Tempat lahir : ");
+    fgets(ktp.tmp_lahir, 30, stdin);
+    strtok(ktp.tmp_lahir, "\n");
+    printf("Masukkan Tanggal lahir(31/12/1990) : ");
+    fgets(ktp.tgl_lahir, 15, stdin);
+    strtok(ktp.tgl_lahir, "\n");
+    printf("Masukkan Jenis Kelamin : ");
+    fgets(ktp.jenis, 10, stdin);
+    strtok(ktp.jenis, "\n");
     fflush(stdin);
-    printf("Alamat\t\t  : ");
-    fgets(alamat, 30, stdin);
-    strtok(alamat, "\n");
+    printf("Masukkan Alamat : ");
+    fgets(ktp.alamat, 30, stdin);
+    strtok(ktp.alamat, "\n");
     fflush(stdin);
-    printf("RT/RW\t\t  : ");
-    fgets(rt_rw, 10, stdin);
-    strtok(rt_rw, "\n");
-    printf("Kel/Desa\t  : ");
-    fgets(kel, 25, stdin);
-    strtok(kel, "\n");
-    printf("Kecamatan\t  : ");
-    fgets(kec, 30, stdin);
-    strtok(kec, "\n");
-    printf("Agama\t\t  : ");
-    fgets(agama, 10, stdin);
-    strtok(agama, "\n");
-    printf("Status Perkawinan : ");
-    fgets(status, 15, stdin);
-    strtok(status, "\n");
-    printf("Kewarganegaraan\t  : ");
-    fgets(kwg, 5, stdin);
-    strtok(kwg, "\n");
-    printf("Pekerjaan\t  : ");
-    fgets(pekerjaan, 15, stdin);
-    strtok(pekerjaan, "\n");
-    printf("Gol. Darah\t  : ");
-    fgets(gol, 2, stdin);
-    strtok(gol, "\n");
-    fprintf(fp, "=====================================================\n");
-    fprintf(fp, "NIK\t\t  : %s\nNama\t\t  : %s\nTempat lahir\t  : %s\n", nik, nama, tmp_lahir);
-    fprintf(fp, "Tanggal lahir\t  : %s\nJenis Kelamin\t  : %s\nAlamat\t\t  : %s\n", tgl_lahir, jenis, alamat);
-    fprintf(fp, "RT/RW\t\t  : %s\nKel/Desa\t  : %s\nKecamatan\t  : %s\nAgama\t\t  : %s\nStatus Perkawinan : %s\n", rt_rw, kel, kec, agama, status);
-    fprintf(fp, "Kewarganegaraan\t  : %s\nPekerjaan\t  : %s\nGol. Darah\t  : %s\n", kwg, pekerjaan, gol);
-    fprintf(fp, "=====================================================\n\n");
-
+    printf("Masukkan RT/RW : ");
+    fgets(ktp.rt_rw, 10, stdin);
+    strtok(ktp.rt_rw, "\n");
+    fflush(stdin);
+    printf("Masukkan Kel/Desa : ");
+    fgets(ktp.kel, 25, stdin);
+    strtok(ktp.kel, "\n");
+    fflush(stdin);
+    printf("Masukkan Kecamatan : ");
+    fgets(ktp.kec, 30, stdin);
+    strtok(ktp.kec, "\n");
+    printf("Masukkan Agama : ");
+    fgets(ktp.agama, 10, stdin);
+    strtok(ktp.agama, "\n");
+    printf("Masukkan Status Perkawinan : ");
+    fgets(ktp.status, 15, stdin);
+    strtok(ktp.status, "\n");
+    printf("Masukkan Kewarganegaraan : ");
+    fgets(ktp.kwg, 5, stdin);
+    strtok(ktp.kwg, "\n");
+    printf("Masukkan Pekerjaan : ");
+    fgets(ktp.pekerjaan, 20, stdin);
+    strtok(ktp.pekerjaan, "\n");
+    printf("Masukkan Gol. Darah : ");
+    fgets(ktp.gol, 5, stdin);
+    strtok(ktp.gol, "\n");
+    fprintf(fp, "%s %s %s %s %s %s %s %s %s %s %s %s %s %s\n",ktp.nik,ktp.nama,ktp.tmp_lahir,ktp.tgl_lahir,ktp.jenis,ktp.alamat,ktp.rt_rw,ktp.kel,ktp.kec,ktp.agama,ktp.status,ktp.kwg,ktp.pekerjaan,ktp.gol);
     printf("-------- Terima Kasih Sudah Mengisi Data-Data --------\n");
     fclose(fp);
 }
 
-void ak(){
-    char nama[50], tempat[30], tanggal[30], tahun[20], tgllahir[60], alamatlengkap[100];
+
+void buatak(){
     int x;
     double y;
     char header[]="----------- Selamat Datang di Layanan Pembuatan Akta Kematian -----------";
@@ -440,121 +504,116 @@ void ak(){
     }
     printf("\n--------------- Silahkan Untuk Mengisi Data-Data di Bawah ---------------\n\n");
     fflush(stdin);
-    printf("Nama\t\t\t  : ");
-    fgets(nama, 50, stdin);
-    strtok(nama, "\n");
+    printf("Masukkan Nama : ");
+    fgets(ak.nama, 50, stdin);
+    strtok(ak.nama, "\n");
     fflush(stdin);
-    printf("Tempat lahir\t\t  : ");
-    fgets(tmp_lahir, 30, stdin);
-    strtok(tmp_lahir, "\n");
-    printf("Tanggal lahir(huruf)\t  : ");
-    fgets(tgllahir, 60, stdin);
-    strtok(tgllahir, "\n");
-    printf("Tempat meninggal\t  : ");
-    fgets(tempat, 30, stdin);
-    strtok(tempat, "\n");
-    printf("Tanggal meninggal(huruf)  : ");
-    fgets(tanggal, 30, stdin);
-    strtok(tanggal, "\n");
-    printf("tahun meninggal(huruf)\t  : ");
-    fgets(tahun, 20, stdin);
-    strtok(tahun, "\n");
+    printf("Anak ke : ");
+    fgets(ak.anak, 10, stdin);
+    strtok(ak.anak, "\n");
     fflush(stdin);
-    printf("Alamat Lengkap\t\t  : ");
-    fgets(alamatlengkap, 100, stdin);
-    strtok(alamatlengkap, "\n");
-    fprintf(fp, "====================================================================\n");
-    fprintf(fp, "Nama\t\t  : %s\nTempat lahir\t  : %s\nTanggal lahir\t  : %s\n", nama, tmp_lahir, tgllahir);
-    fprintf(fp, "Tempat Meninggal  : %s\nTanggal Meninggal : %s\n", tempat, tanggal, tahun);
-    fprintf(fp, "Tahun Meninggal\t  : %s\nAlamat Meninggal  : %s\n", tahun, alamatlengkap);
-    fprintf(fp, "====================================================================\n\n");
+    printf("Masukkan Jenis Kelamin : ");
+    fgets(ak.jkelamin, 20, stdin);
+    strtok(ak.jkelamin, "\n");
+    printf("Masukkan Tempat lahir : ");
+    fgets(ak.tmp_lahir, 20, stdin);
+    strtok(ak.tmp_lahir, "\n");
+    printf("Masukkan Tanggal lahir(31/12/1990) : ");
+    fgets(ak.tgl_lahir, 20, stdin);
+    strtok(ak.tgl_lahir, "\n");
+    printf("Masukkan Tempat meninggal : ");
+    fgets(ak.tmp_mati, 20, stdin);
+    strtok(ak.tmp_mati, "\n");
+    printf("Masukkan Tanggal meninggal(31/12/1990) : ");
+    fgets(ak.tgl_mati, 20, stdin);
+    strtok(ak.tgl_mati, "\n");
+    printf("Masukkan Nama Ayah : ");
+    fgets(ak.nayah, 50, stdin);
+    strtok(ak.nayah, "\n");
+    printf("Masukkan Nama Ibu : ");
+    fgets(ak.nibu, 50, stdin);
+    strtok(ak.nibu, "\n");
+    noak();
+    fprintf(fp, "%s %s %s %s %s %s %s %s %s\n", ak.nama, ak.anak, ak.jkelamin, ak.tmp_lahir, ak.tgl_lahir,ak.tmp_mati,ak.tgl_mati,ak.nayah,ak.nibu);
 
     printf("\n\n------------------ Terima Kasih Sudah Mengisi Data-Data ------------------\n");
     fclose(fp);
 }
 
-void pd(){
+void noak()
+{
+    int Digit3;
+    char digit1[10];
+    char digit2[10],digit3[10],digit4[10];
+    char randnum1[10]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char randnum2[10]="0123456789";
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    if(strcmp(ak.tmp_mati,"Bandung")==0) strcpy(digit1,"3273-");
+    else if(strcmp(ak.tmp_mati,"Jakarta Selatan")==0) strcpy(digit1,"3174-");
+    else if(strcmp(ak.tmp_mati,"Makassar")==0) strcpy(digit1,"7371-");
+    else if(strcmp(ak.tmp_mati,"Lampung")==0) strcpy(digit1,"1803-");
+    else strcpy(digit1,"1321-");
+
+    srand(time(NULL));
+    for(i=0;i<10;i++)
+    {
+        digit2[i]=randnum1[rand()%(sizeof(randnum1)-1)];
+    }
+    digit2[2]=0;
+    strcat(digit2,"-");
+
+
+    Digit3=(tm.tm_mday*1000000)+((tm.tm_mon+1)*10000)+(tm.tm_year+1900);
+    sprintf(digit3,"%d",Digit3);
+    strcat(digit3,"-");
+
+
+    for(i=0;i<10;i++)
+    {
+        digit4[i]=randnum2[rand()%(sizeof(randnum2)-1)];
+    }
+    digit4[4]=0;
+    strcat(ak.noakta,digit1);
+    strcat(ak.noakta,digit2);
+    strcat(ak.noakta,digit3);
+    strncat(ak.noakta,digit4,4);
+    fprintf(fp,"%s ",ak.noakta);
+
+}
+
+void cekdata()
+{
     int x;
     double y;
-    char header1[]="----------- Mohon Maaf Layanan Pencarian Data Dalam Perbaikan -----------\n";
-    char header2[]="----------------------------- Terima Kasih ------------------------------\n";
-    for(x=0; header1[x]!=NULL; x++){
-        printf("%c",header1[x]);
-        for(y=0; y<=33333333; y++){
-      }
-    }
-    for(x=0; header2[x]!=NULL; x++){
-        printf("%c",header2[x]);
-        for(y=0; y<=33333333; y++){
-      }
-    }
-}
-
-int main()
-{
-    int x,y;
-    char header[]="----------- Selamat Datang di Dukcapil Assistant -----------\n\n";
-
-    Login_Page:
-    for(x=0; header[x]!=NULL; x++)
-    {
+    char header[]="----------- Selamat Datang di Layanan Pengecekan Data -----------";
+    for(x=0; header[x]!=NULL; x++){
         printf("%c",header[x]);
-        for(y=0; y<=33333333; y++)
-        {}
+        for(y=0; y<=33333333; y++){
+      }
     }
-    printf("Silahkan Login atau Registrasi untuk melanjutkan\n");
-    printf("1. Login\n");
-    printf("2. Registrasi\n");
-    printf("3. Exit\n");
-    printf("Pilih : ");
-    scanf("%d",&pilih);
-    if(pilih==1) login();
-    else if(pilih==2) registrasi();
-    else return 0;
+    printf("\n--------------- Silahkan Untuk Mengisi Data-Data di Bawah ---------------\n\n");
+    fflush(stdin);
 
-    Pilih_Layanan:
+    char cari[20],target[20],found;
+    FILE *fp=NULL;
+
     pilih=0;
-    system("pause");
-    system("cls");
-    printf("----------- Selamat Datang di Dukcapil Assistant -----------\n\n");
-    printf("Silahkan Memilih Layanan :\n");
-    printf("1. Pembuatan Kartu Keluarga\n");
-    printf("2. Pembuatan Akta Kelahiran\n");
-    printf("3. Pembuatan Kartu Tanda Penduduk\n");
-    printf("4. Pembuatan Surat Kematian\n");
-    printf("5. Pengecekan Data\n");
-    printf("6. Log Out\n");
-    printf("Pilih : ");
-    scanf("%d",&pilih);
-    switch(pilih)
+    n=0;
+    fp=fopen("Data KTP.txt","r");
+    fflush(stdin);
+    printf("Masukkan NIK Yang Dicari : ");
+    fgets(cari,20,stdin); strtok(cari,"\n");
+    fflush(stdin);
+    while(!feof(fp))
     {
-        case 1:
-        system("cls");
-        buatkk();
-        goto Pilih_Layanan;
-
-        case 2:
-        system("cls");
-        buatakl();
-        goto Pilih_Layanan;
-
-        case 3:
-        system("cls");
-        ktp();
-        goto Pilih_Layanan;
-
-        case 4:
-        system("cls");
-        ak();
-        goto Pilih_Layanan;
-
-        case 5:
-        system("cls");
-        pd();
-        goto Pilih_Layanan;
-
-        case 6:
-        system("cls");
-        goto Login_Page;
+        char data1[25],data2[50],data3[30],data4[15],data5[10],data6[30],data7[10],data8[25],data9[30],data10[10],data11[15],data12[5],data13[15],data14[5];
+        fscanf(fp,"%s\n",data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14);
+        if(strcmp(cari,data1)==0) found=1;
     }
+    if(found==1)printf("NIK %s ditemukan\n",cari);
+    else printf("NIK %s tidak ditemukan\n",cari);
+    fclose(fp);
 }
+

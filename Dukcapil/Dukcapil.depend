@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1655216030 source:c:\users\axel david\documents\2022\telkom university\mata kuliah\algoritma dan pemrograman\praktikum\tubes\dukcapil assistant\dukcapil\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

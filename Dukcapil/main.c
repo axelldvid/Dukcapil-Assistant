@@ -29,7 +29,6 @@ struct aktakematian
 
 FILE *fp;
 int i,j,n,pilih;
-char nokk[20],nama[50], alamat[30], tgl_lahir[15], tmp_lahir[30], status[15], pekerjaan[25];
 
 int main()
 {
@@ -60,8 +59,6 @@ int main()
         scanf("%s",&pw_save);
         fprintf(fp, "%s %s", un_save,pw_save);
         fclose(fp);
-        system("cls");
-        goto Login_Page;
     }
     else if(pilih==2)
     {
@@ -137,7 +134,7 @@ int main()
         cekdata();
         goto Pilih_Layanan;
 
-        default 6:
+        default:
         system("cls");
         goto Login_Page;
     }
@@ -616,4 +613,3 @@ void cekdata()
     else printf("NIK %s tidak ditemukan\n",cari);
     fclose(fp);
 }
-

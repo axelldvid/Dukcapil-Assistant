@@ -137,7 +137,7 @@ int main()
         cekdata();
         goto Pilih_Layanan;
 
-        case 6:
+        default 6:
         system("cls");
         goto Login_Page;
     }

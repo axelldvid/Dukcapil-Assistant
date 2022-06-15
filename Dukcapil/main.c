@@ -343,7 +343,7 @@ void buatkk()
     printf("Data Anda Telah Disimpan\n");
 }
 
-void noakl()
+void noakl() //nomor akta kelahiran generator
 {
     int Digit3;
     char digit1[10];
@@ -542,7 +542,7 @@ void buatak(){
     fclose(fp);
 }
 
-void noak()
+void noak() //nomor akta kematian generator
 {
     int Digit3;
     char digit1[10];

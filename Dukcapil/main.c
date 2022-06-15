@@ -162,7 +162,8 @@ void nomorkk() //nomor kartu keluarga generator
     srand(time(NULL)); //fungsi untuk menyediakan seed(kombinasi) karakter yang akan terus berubah tiap waktu
     for(i=0;i<10;i++)
     {
-        digit3[i]=randnum[rand()%(sizeof(randnum)-1)]; //program mengisi angka secara acak yang diambil dari variabel randnum satu per satu kedalam variabel digit3
+        digit3[i]=randnum[rand()%(sizeof(randnum)-1)]; 
+        //program mengisi angka secara acak yang diambil dari variabel randnum satu per satu kedalam variabel digit3
     }
     digit3[4]=0; //menetapkan jumlah karakter yang akan disimpan
     strcat(kk.nokk,digit1); //menyambungkan karakter dalam digit1 dengan kk.nokk 
@@ -187,12 +188,15 @@ void nik() //nomor nik generator
     else if(strcmp(arrkk[i].tmp_lahir,"Lampung")==0) strcpy(digit1[i],"180319");
     else strcpy(digit1[i],"110321");
     
-    memcpy(digit2[i],arrkk[i].tgl_lahir,2); //digit2 berisikan 2 angka tanggal lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 16)
+    memcpy(digit2[i],arrkk[i].tgl_lahir,2);
     digit2[i][2]='\0';
-    memcpy(digit3[i],arrkk[i].tgl_lahir+3,2); //digit3 berisikan 2 angka bulan lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 06)
+     //digit2 berisikan 2 angka tanggal lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 16)
+    memcpy(digit3[i],arrkk[i].tgl_lahir+3,2); 
     digit3[i][2]='\0';
-    memcpy(digit4[i],arrkk[i].tgl_lahir+8,2); //digit4 berisikan 2 angka tahun lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 22)
+    //digit3 berisikan 2 angka bulan lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 06)
+    memcpy(digit4[i],arrkk[i].tgl_lahir+8,2); 
     digit4[i][2]='\0';
+    //digit4 berisikan 2 angka tahun lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 22)
 
 
     for(j=0;j<10;j++)

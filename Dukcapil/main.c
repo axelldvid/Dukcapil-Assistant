@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <time.h> //Penambahan header time untuk menampilkan waktu
 
+//Variabel Global
 struct kartukeluarga
 {
     char nokk[15],alamat[50],rt_rw[20],kodepos[20],kel[20],kec[20],kab[20],prov[20];
@@ -35,8 +36,8 @@ int main()
     int x,y;
     char header[]="----------- Selamat Datang di Dukcapil Assistant -----------\n\n";
 
-    Login_Page:
-    for(x=0; header[x]!=NULL; x++)
+    Login_Page: //set point untuk digunakan dengan fungsi goto
+    for(x=0; header[x]!=NULL; x++) //algoritma untuk menampilkan tulisan bergerak
     {
         printf("%c",header[x]);
         for(y=0; y<=33333333; y++)
@@ -51,13 +52,13 @@ int main()
     if(pilih==1)
     {
         char pw_save[20],un_save[20];
-        fp = fopen("login.txt", "a+");
+        fp = fopen("login.txt", "a+"); //menambahkan output kedalam file yang sudah ada dan membuat baru jika belum ada
         printf("\n=======Registrasi=======\n");
         printf("Masukkan username : ");
         scanf("%s",&un_save);
         printf("Masukkan password : ");
         scanf("%s",&pw_save);
-        fprintf(fp, "%s %s", un_save,pw_save);
+        fprintf(fp, "%s %s\n", un_save,pw_save);
         fclose(fp);
     }
     else if(pilih==2)
@@ -65,19 +66,18 @@ int main()
         char password[20], username[20];
         int isLoggenin = 0;
 
-        fp = fopen("Login.txt", "r");
+        fp = fopen("Login.txt", "r"); //membaca isi file
         printf("\n=========Log in=========\n");
         printf("Masukkan username : ");
         scanf("%s",&username);
         printf("Masukkan password : ");
         scanf("%s",&password);
         printf("\n");
-        while(!feof(fp)){
+        while(!feof(fp)){ //membaca isi file hingga berhenti jika menemukan akhir dari file
             char un[20];
             char pw[20];
         fscanf(fp,"%s %s\n",un,pw);
-        if(strcmp(username, un) == 0 &&
-        strcmp(password,pw) == 0){
+        if(strcmp(username, un) == 0 && strcmp(password,pw) == 0){
         isLoggenin = 1;
             }
         }
@@ -87,7 +87,7 @@ int main()
         else{
         printf("login gagal!");
         system("cls");
-        goto Login_Page;
+        goto Login_Page; //kembali ke tampilan awal
         }
         fclose(fp);
     }
@@ -140,37 +140,37 @@ int main()
     }
 }
 
-void nomorkk()
+void nomorkk() //nomor kartu keluarga generator
 {
     int Digit2;
     char digit1[10];
     char digit2[10],digit3[10];
-    char randnum[10]="0123456789";
+    char randnum[10]="0123456789"; //deklarasi dan inisialisasi variabel yang akan diacak oleh program
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-
+    //digit1 berisikan 6 angka yang merupakan kode wilayah berdasarkan inputan provinsi kartu keluarga user
     if(strcmp(kk.prov,"Jawa Barat")==0) strcpy(digit1,"327322");
     else if(strcmp(kk.prov,"DKI Jakarta")==0) strcpy(digit1,"317406");
     else if(strcmp(kk.prov,"Sulawesi Selatan")==0) strcpy(digit1,"737102");
     else if(strcmp(kk.prov,"Lampung")==0) strcpy(digit1,"180319");
     else strcpy(digit1,"110321");
-
+    //digit2 berisikan 6 angka lagi yang merupakan tanggal penginputan data (contoh 160622)
     Digit2=(tm.tm_mday*10000)+((tm.tm_mon+1)*100)+(tm.tm_year+1900-2000);
     sprintf(digit2,"%d",Digit2);
-
-    srand(time(NULL));
+    //digit3 berisikan sisa 4 angka terakhir yang dirandom generate oleh program
+    srand(time(NULL)); //fungsi untuk menyediakan seed(kombinasi) karakter yang akan terus berubah tiap waktu
     for(i=0;i<10;i++)
     {
-        digit3[i]=randnum[rand()%(sizeof(randnum)-1)];
+        digit3[i]=randnum[rand()%(sizeof(randnum)-1)]; //program mengisi angka secara acak yang diambil dari variabel randnum satu per satu kedalam variabel digit3
     }
-    digit3[4]=0;
-    strcat(kk.nokk,digit1);
-    strcat(kk.nokk,digit2);
-    strncat(kk.nokk,digit3,4);
+    digit3[4]=0; //menetapkan jumlah karakter yang akan disimpan
+    strcat(kk.nokk,digit1); //menyambungkan karakter dalam digit1 dengan kk.nokk 
+    strcat(kk.nokk,digit2); //menyambungkan karakter dalam digit2 dengan kk.nokk
+    strncat(kk.nokk,digit3,4); //menyambungkan karakter dalam digit3 dengan kk.nokk
     fprintf(fp,"%s\n",kk.nokk);
 }
 
-void nik()
+void nik() //nomor nik generator
 {
     char digit1[n][10];
     char digit2[n][10],digit3[n][10],digit4[n][10];
@@ -179,18 +179,18 @@ void nik()
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     srand(time(NULL));
-
+    //digit1 berisikan 6 angka kode wilayah berdasarkan inputan tempat lahir user pada kartu keluarga
     if(strcmp(arrkk[i].tmp_lahir,"Bandung")==0) strcpy(digit1[i],"327322");
     else if(strcmp(arrkk[i].tmp_lahir,"Jakarta Selatan")==0) strcpy(digit1[i],"317406");
     else if(strcmp(arrkk[i].tmp_lahir,"Makassar")==0) strcpy(digit1[i],"737102");
     else if(strcmp(arrkk[i].tmp_lahir,"Lampung")==0) strcpy(digit1[i],"180319");
     else strcpy(digit1[i],"110321");
-
-    memcpy(digit2[i],arrkk[i].tgl_lahir,2);
+    
+    memcpy(digit2[i],arrkk[i].tgl_lahir,2); //digit2 berisikan 2 angka tanggal lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 16)
     digit2[i][2]='\0';
-    memcpy(digit3[i],arrkk[i].tgl_lahir+3,2);
+    memcpy(digit3[i],arrkk[i].tgl_lahir+3,2); //digit3 berisikan 2 angka bulan lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 06)
     digit3[i][2]='\0';
-    memcpy(digit4[i],arrkk[i].tgl_lahir+8,2);
+    memcpy(digit4[i],arrkk[i].tgl_lahir+8,2); //digit4 berisikan 2 angka tahun lahir yang diambil dari variabel tgl_lahir user (contoh 16/06/2022 diambil 22)
     digit4[i][2]='\0';
 
 
@@ -347,7 +347,7 @@ void noakl()
     char randnum2[10]="0123456789";
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-
+   
     if(strcmp(akl.tmp_lahir,"Bandung")==0) strcpy(digit1,"3273-");
     else if(strcmp(akl.tmp_lahir,"Jakarta Selatan")==0) strcpy(digit1,"3174-");
     else if(strcmp(akl.tmp_lahir,"Makassar")==0) strcpy(digit1,"7371-");

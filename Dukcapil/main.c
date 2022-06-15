@@ -85,7 +85,8 @@ int main()
         printf("login berhasil!\n");
         }
         else{
-        printf("login gagal!");
+        printf("login gagal!\n");
+        system("pause");
         system("cls");
         goto Login_Page; //kembali ke tampilan awal
         }
@@ -222,28 +223,28 @@ void buatkk()
 
     fp=fopen("Data KK.txt","a+");
     fflush(stdin);
-    printf("Masukkan Nama Kepala Keluarga\t\t\t\t: ");
+    printf("Masukkan Nama Kepala Keluarga : ");
     fgets(kk.nama,50,stdin); strtok(kk.nama,"\n");
     fflush(stdin);
-    printf("Masukkan Alamat\t\t\t\t\t\t: ");
+    printf("Masukkan Alamat : ");
     fgets(kk.alamat,50,stdin); strtok(kk.alamat,"\n");
     fflush(stdin);
-    printf("Masukkan RT/RW\t\t\t\t\t: ");
+    printf("Masukkan RT/RW : ");
     fgets(kk.rt_rw,20,stdin); strtok(kk.rt_rw,"\n");
     fflush(stdin);
-    printf("Masukkan Kodepos\t\t\t\t\t: ");
+    printf("Masukkan Kodepos : ");
     fgets(kk.kodepos,20,stdin); strtok(kk.kodepos,"\n");
     fflush(stdin);
-    printf("Masukkan Desa/Kelurahan\t\t\t\t: ");
+    printf("Masukkan Desa/Kelurahan : ");
     fgets(kk.kel,20,stdin); strtok(kk.kel,"\n");
     fflush(stdin);
-    printf("Masukkan Kecamatan\t\t\t\t\t: ");
+    printf("Masukkan Kecamatan : ");
     fgets(kk.kec,20,stdin); strtok(kk.kec,"\n");
     fflush(stdin);
-    printf("Masukkan Kabupaten/Kota\t\t\t\t\t: ");
+    printf("Masukkan Kabupaten/Kota : ");
     fgets(kk.kab,20,stdin); strtok(kk.kab,"\n");
     fflush(stdin);
-    printf("Masukkan Provinsi\t\t\t\t\t: ");
+    printf("Masukkan Provinsi : ");
     fgets(kk.prov,20,stdin); strtok(kk.prov,"\n");
     fflush(stdin); printf("\n");
     system("pause"); system("cls");
